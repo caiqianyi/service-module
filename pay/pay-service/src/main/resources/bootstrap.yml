@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: pay-service
+  session:
+    store-type: none
+  freemarker:
+    request-context-attribute: req  #req访问request
+    suffix: .html  #后缀名
+  cloud:
+    config:
+      name: fast
+      profile: test
+      username: guess
+      password: 123123
+      uri: http://47.95.7.11:7369/
+      label: master
+    http:
+        multipart:
+            max-file-size: 100MB
+            max-request-size: 100MB
+            enabled: true
+# Define the port where the Widget Foundry server would be running
+server:
+  port: 9991

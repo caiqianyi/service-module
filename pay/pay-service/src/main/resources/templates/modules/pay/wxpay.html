@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>支付配置</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="stylesheet" href="/statics/css/bootstrap.min.css">
+<link rel="stylesheet" href="/statics/css/font-awesome.min.css">
+<link rel="stylesheet" href="/statics/plugins/jqgrid/ui.jqgrid-bootstrap.css">
+<link rel="stylesheet" href="/statics/plugins/ztree/css/metroStyle/metroStyle.css">
+<link rel="stylesheet" href="/statics/css/main.css">
+<script src="/statics/libs/jquery.min.js"></script>
+<script src="/statics/plugins/layer/layer.js"></script>
+<script src="/statics/libs/bootstrap.min.js"></script>
+<script src="/statics/libs/vue.min.js"></script>
+<script src="/statics/plugins/jqgrid/grid.locale-cn.js"></script>
+<script src="/statics/plugins/jqgrid/jquery.jqGrid.min.js"></script>
+<script src="/statics/plugins/ztree/jquery.ztree.all.min.js"></script>
+<script src="/statics/js/common.js"></script>
+<link rel="stylesheet" href="/statics/css/bootstrap-table.min.css">
+<link rel="stylesheet" href="/statics/plugins/treegrid/jquery.treegrid.css">
+<script src="/statics/libs/bootstrap-table.min.js"></script>
+<script src="/statics/plugins/treegrid/jquery.treegrid.min.js"></script>
+<script src="/statics/plugins/treegrid/jquery.treegrid.bootstrap3.js"></script>
+<script src="/statics/plugins/treegrid/jquery.treegrid.extension.js"></script>
+<script src="/statics/plugins/treegrid/tree.table.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<div v-show="showList">
+		<div class="grid-btn">
+			<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			<a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			<a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+		</div>
+		<table id="configTable" data-mobile-responsive="true" data-click-to-select="true">
+			<thead>
+			<tr>
+				<th data-field="selectItem" data-checkbox="true"></th>
+			</tr>
+			</thead>
+		</table>
+	</div>
+
+    <div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+			<div class="form-group">
+				<div class="col-sm-2 control-label">支付方式</div>
+				<label class="radio-inline">
+					<input type="radio" name="type" v-model="config.type" value="1"/> 微信公众号支付（JSAPI）
+				</label>
+			</div>
+			<div class="form-horizontal">
+				<div class="form-group">
+					<div class="col-sm-2 control-label">Account</div>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" v-model="config.account" placeholder="发起支付调用名称，唯一"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2 control-label">AppId</div>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" v-model="config.appid" placeholder="支付宝分配给开发者的应用ID"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2 control-label">商户号</div>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" v-model="config.mchid" placeholder="mercNo"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2 control-label">密钥secret</div>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" v-model="config.secret" placeholder="密钥secret"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2 control-label">支付结果异步通知URL</div>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" v-model="config.notifyUrl" placeholder="支付结果异步通知URL"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2 control-label">RabbitMQ队列名（回调校验成功后调用）</div>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" v-model="config.queueName" placeholder="不设置默认为空"/>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script src="/statics/js/modules/pay/wxpay.js"></script>
+</body>
+</html>

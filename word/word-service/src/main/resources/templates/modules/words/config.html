@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>敏感词列表</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="stylesheet" href="/statics/css/bootstrap.min.css">
+<link rel="stylesheet" href="/statics/css/font-awesome.min.css">
+<link rel="stylesheet" href="/statics/plugins/jqgrid/ui.jqgrid-bootstrap.css">
+<link rel="stylesheet" href="/statics/plugins/ztree/css/metroStyle/metroStyle.css">
+<link rel="stylesheet" href="/statics/css/main.css">
+<script src="/statics/libs/jquery.min.js"></script>
+<script src="/statics/plugins/layer/layer.js"></script>
+<script src="/statics/libs/bootstrap.min.js"></script>
+<script src="/statics/libs/vue.min.js"></script>
+<script src="/statics/plugins/jqgrid/grid.locale-cn.js"></script>
+<script src="/statics/plugins/jqgrid/jquery.jqGrid.min.js"></script>
+<script src="/statics/plugins/ztree/jquery.ztree.all.min.js"></script>
+<script src="/statics/js/common.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+			<div class="form-group">
+				<div class="col-sm-2 control-label">选择</div>
+				<label class="radio-inline">
+					<input type="radio" name="type" v-model="config.type" value="1"/>导入
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="type" v-model="config.type" value="2"/>导出
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="type" v-model="config.type" value="3"/>检测
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="type" v-model="config.type" value="4"/>删除
+				</label>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label">类型</div>
+				<div class="col-sm-10">
+					<select v-model="selected" @change='typeSelect'>  
+					  <option v-for="option in options" v-bind:value="option.value">  
+					    {{ option.text }}  
+					  </option>  
+					</select>  
+				</div>
+			</div>
+			<div v-show="config.type == 1" class="form-horizontal">
+				<div class="form-group">
+					<div class="col-sm-2 control-label">类型ID</div>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" v-model="word.id" placeholder="类型ID"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2 control-label">类型名称</div>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" v-model="word.name" placeholder="类型名称"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2 control-label">txt格式敏感词（换行分割）</div>
+					<div class="col-sm-10">
+						<input type="file" name="uploadWords" @change='onUpload'/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2 control-label"></div> 
+					<input type="button" class="btn btn-primary" @click="wordsImport" value="确定"/>
+				</div>
+			</div>
+			<div v-show="config.type == 2" class="form-horizontal">
+				<div class="form-group">
+					<div class="col-sm-2 control-label"></div> 
+					<input type="button" class="btn btn-primary" @click="wordsWxport" value="导出"/>
+				</div>
+			</div>
+			
+			<div v-show="config.type == 3" class="form-horizontal">
+				<div class="form-group">
+					<textarea rows="10" cols="10" class="form-control" v-model="cword" value="地方元角淫荡乳房八淡淡的九毛"></textarea>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2 control-label"><samp style="width: 500px;">{{checkResult}}</samp></div> 
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2 control-label"></div> 
+					<input type="button" class="btn btn-primary" @click="check" value="检测" />
+				</div>
+			</div>
+			<div v-show="config.type == 4" class="form-horizontal">
+				<div class="form-group">
+					<div class="col-sm-2 control-label"></div> 
+					<div class="col-sm-10">
+						<input type="text" class="form-control" v-model="cword" placeholder="请输出需要删除得敏感词"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2 control-label"></div> 
+					<input type="button" class="btn btn-primary" @click="del" value="删除"/>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script src="/statics/js/modules/words/config.js"></script>
+</body>
+</html>
