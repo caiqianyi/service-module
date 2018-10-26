@@ -132,7 +132,7 @@ public abstract class AbstractSMSGatewayClient {
   				if(StringUtils.isNumeric(key)){
   	  				Long time = Long.parseLong(key);
   	  				String astrictCache = String.format(RedisKeyConstant.SMS_SEND_COUNT_SECOND_MOBILE, time,mobile);
-  	  				if(!redisCache.has(astrictCache)){
+  	  				if(!redisCache.exists(astrictCache)){
   	  					redisCache.set(astrictCache, 0 , time);
   	  				}
   	  				count = (Integer) redisCache.get(astrictCache)+1;

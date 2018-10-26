@@ -40,7 +40,7 @@ public class SMSGatewayConfig {
 			redisHash.hSet(RedisKeyConstant.HASH_SMS_SECRET_CSTID,"58007","161dea687be947789169bbe13f0b6e25");
 		}
 		String sstac_58007 = String.format(RedisKeyConstant.HASH_SMS_SEND_TIME_ASTRICT_CSTID, "58007");
-		if(!redisCache.has(sstac_58007)){
+		if(!redisCache.exists(sstac_58007)){
 			redisHash.hSet(sstac_58007,(5 * 60)+"",3);
 			redisHash.hSet(sstac_58007,(10 * 60)+"",8);
 			redisHash.hSet(sstac_58007,(60 * 60)+"",10);
@@ -51,7 +51,7 @@ public class SMSGatewayConfig {
 			redisHash.hSet(RedisKeyConstant.HASH_SMS_SECRET_CSTID,"58006","7faca3e9eede4f4ab738ce81627c2327");
 		}
 		String sstac_58006 = String.format(RedisKeyConstant.HASH_SMS_SEND_TIME_ASTRICT_CSTID, "58006");
-		if(!redisCache.has(sstac_58006)){
+		if(!redisCache.exists(sstac_58006)){
 			redisHash.hSet(sstac_58006,(5 * 60)+"",3);
 			redisHash.hSet(sstac_58006,(10 * 60)+"",8);
 			redisHash.hSet(sstac_58006,(60 * 60)+"",10);
